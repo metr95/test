@@ -12,42 +12,40 @@ import java.util.concurrent.TimeUnit;
 
 public class Driver {
 
-    private static Driver instanse;
-    private static WebDriver driver = null;
+    private WebDriver driver = null;
     private static final Logger log = Logger.getLogger(Driver.class);
 
-    private Driver() {
-    }
 
     public WebDriver getDriver(String browser, String resolution) {
         if (driver == null || driver.toString().contains("null"))
             init(browser, resolution);
-        return Driver.driver;
-    }
-
-    public static Driver getInstanse() {
-        if (instanse == null)
-            instanse = new Driver();
-        return instanse;
+        return driver;
     }
 
     private void init(String browser, String resolution) {
         log.info(String.format("Starting to create [%s] driver with resolution [%s]", browser, resolution));
-        if ("chrome".equals(browser)) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else if ("ie".equals(browser)) {
-            WebDriverManager.iedriver().setup();
-            driver = new InternetExplorerDriver();
-        } else if ("edge".equals(browser)) {
-            WebDriverManager.edgedriver().setup();
-            driver = new EdgeDriver();
+        switch (browser) {
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+            case "ie":
+                WebDriverManager.iedriver().setup();
+                driver = new InternetExplorerDriver();
+                break;
+            case "edge":
+                WebDriverManager.edgedriver().setup();
+                driver = new EdgeDriver();
+                break;
         }
+
         log.info(String.format("finished to create [%s] driver", browser));
         log.info(String.format("[%s] driver created.", browser));
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
         log.info(String.format("set resolution [%s] for [%s] driver", resolution, browser));
-        driver.manage().window().setSize(new Dimension(Integer.parseInt(resolution.split("x")[0]), Integer.parseInt(resolution.split("x")[1])));
+        driver.manage().window().setSize(
+                new Dimension(Integer.parseInt(resolution.split("x")[0]),
+                        Integer.parseInt(resolution.split("x")[1])));
     }
 
     public void close() {

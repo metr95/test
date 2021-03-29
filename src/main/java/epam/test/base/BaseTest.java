@@ -9,21 +9,19 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-public class BaseTest {
+public abstract class BaseTest {
 
     private static final Logger log = Logger.getLogger(BaseTest.class);
     @Getter
     private TestDataLoader testDataLoader = new TestDataLoader();
-    private Driver driver;
+    private WebDriver driver;
 
     public WebDriver getDriver() {
-        return driver.getDriver(System.getProperty("browser"), System.getProperty("resolution"));
+        if (driver == null || driver.toString().contains("null"))
+            driver = new Driver().getDriver(testDataLoader.getProperty("browser"), testDataLoader.getProperty("resolution"));
+        return driver;
     }
 
-    public void initializeDriver() {
-        driver = Driver.getInstanse();
-        driver.getDriver(System.getProperty("browser"), System.getProperty("resolution"));
-    }
 
     @BeforeClass
     public void beforeClass() {
@@ -31,13 +29,12 @@ public class BaseTest {
 
     @BeforeMethod
     public void beforeMethod() {
-        initializeDriver();
         getDriver().navigate().to(testDataLoader.getProperty("testPage"));
     }
 
     @AfterMethod
     public void afterMethod() {
         if (driver != null)
-            driver.close();
+            driver.quit();
     }
 }

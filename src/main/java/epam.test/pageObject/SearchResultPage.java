@@ -10,27 +10,28 @@ import java.util.List;
 
 public class SearchResultPage {
 
-    @FindBy(xpath = "//div[@id='center_col']//div[@class='ad_cclk']/a[2]")
-    private WebElement firstLinkByXPath;
+    @FindBy(xpath = "//div[@id='search']//a[1]")
+    private static WebElement firstLinkByXPath;
     @FindBy(xpath = "//div[@id='navcnt']//td")
-    private List<WebElement> googlePages;
+    private static List<WebElement> googlePages;
     @FindBy(id = "tads")
-    private List<WebElement> googleAds;
+    private static List<WebElement> googleAds;
     @FindBy(xpath = "//div[@id='tads']//a")
-    private WebElement googleAdsLink;
+    private static WebElement googleAdsLink;
     @FindBy(xpath = "//div[@id='search']//div[@class='g']")
-    private List<WebElement> googleSearchResults;
+    private static List<WebElement> googleSearchResults;
 
-    private By googleSearchResultLinks = By.xpath("div/div/div[@class='r']//a/div");
+    private static final By googleSearchResultLinks = By.xpath("div/div/div[@class='r']//a/div");
 
     private final WebDriver driver;
 
     public SearchResultPage(WebDriver driver) {
         this.driver = driver;
-
-        if (!driver.getTitle().contains("Google"))
-            throw new IllegalStateException("This is not a Google search result page.");
         PageFactory.initElements(driver, this);
+    }
+
+    public String getPageTitle() {
+        return driver.getTitle();
     }
 
     public SearchResultPage clickFirstLink() {

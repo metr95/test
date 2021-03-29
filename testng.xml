@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="EPAM test" parallel="methods" thread-count="3">
+<suite name="EPAM test" parallel="methods" thread-count="1">
     <test name="Test test">
         <classes>
             <class name="epam.test.GoogleSearchTest"/>

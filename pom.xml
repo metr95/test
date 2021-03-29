@@ -8,6 +8,10 @@
     <artifactId>epamTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <threadCount>3</threadCount>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -15,18 +19,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12.4</version>
                 <configuration>
-                    <systemPropertyVariables>
-                        <browser>chrome</browser>
-                        <resolution>1024x768</resolution>
-                    </systemPropertyVariables>
                     <properties>
                         <property>
                             <name>parallel</name>
-                            <value>classes</value>
+                            <value>methods</value>
                         </property>
                         <property>
                             <name>threadCount</name>
-                            <value>3</value>
+                            <value>${threadCount}</value>
                         </property>
                     </properties>
                     <suiteXmlFiles>
@@ -81,8 +81,6 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
-
-
     </dependencies>
 
     

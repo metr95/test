@@ -8,9 +8,6 @@ public class ResultPage {
 
     public ResultPage(WebDriver driver) {
         this.driver = driver;
-
-        if (!driver.getTitle().toLowerCase().contains("automation"))
-            throw new IllegalStateException("This is not a result page.");
     }
 
     public String getTitle() {
