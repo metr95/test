@@ -1,5 +1,5 @@
-# epamTest
-test task for epam
+# test
+test task
 
 # Prerequisites
 you need jdk and maven to be installed
