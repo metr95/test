@@ -17,3 +17,4 @@ type command >"mvn clean test" in order to run all the tests.
 if you want to run some testSet use command >"mvn clean -Dtest=<classNameOfTestSet> test"
 if you want to run some special case use command >"mvn clean -Dtest=<classNameOfTestSet#TestMethodName>"
 to see report go to \epamTest\target\surefire-reports\index.html OR to \epamTest\target\surefire-reports\emailable-report.html
+to run tests in parallel use -DthreadCount=N command in cmd
